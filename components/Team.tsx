@@ -1,6 +1,6 @@
 import React from 'react';
 // This line grabs the image from the main folder
-import sandraImage from '../sandra.jpg'; 
+import sandraImage from '../sandra.jpeg'; 
 
 const Team: React.FC = () => {
   return (
