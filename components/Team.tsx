@@ -1,24 +1,20 @@
 import React from 'react';
+// This line grabs the image from the main folder
+import sandraImage from '../sandra.jpg'; 
 
 const Team: React.FC = () => {
   return (
     <section id="team" className="py-32 bg-white scroll-mt-28">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center gap-16 lg:gap-24">
+          
           {/* Image Column */}
           <div className="w-full md:w-1/2 relative">
              <div className="relative aspect-[3/4] w-full max-w-md mx-auto md:mr-auto overflow-hidden rounded-sm bg-gray-100">
-                {/* 
-                  IMPORTANT: To display your custom image, rename your file to 'sandra-aiwohieni.jpg' 
-                  and place it in the public/ root folder of your project.
-                */}
+                
+                {/* Updated Image Tag */}
                 <img
-                  src="./sandra-aiwohieni.jpg"
-                  onError={(e) => {
-                    // Fallback to placeholder if local image is not found
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop";
-                    e.currentTarget.onerror = null; // Prevent infinite loop
-                  }}
+                  src={sandraImage}
                   alt="Arc. Sandra Aiwohieni Airunugba"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />
@@ -60,6 +56,7 @@ const Team: React.FC = () => {
                </div>
             </div>
           </div>
+          
         </div>
       </div>
     </section>
