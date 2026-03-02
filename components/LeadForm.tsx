@@ -22,18 +22,45 @@ const LeadForm: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // --- THIS IS THE NEW REAL API CALL ---
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      setFormData({
-        name: '', email: '', phone: '', projectType: '', budget: '', location: '', timeline: '', description: ''
+
+    // 🔥 PASTE YOUR N8N TEST URL HERE 🔥
+    const WEBHOOK_URL = 'https://fastuous-sophia-counterproductively.ngrok-free.dev/webhook-test/flaux-leads'; 
+
+    try {
+      // Send the data to n8n
+      const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    }, 1500);
+
+      if (response.ok) {
+        // If n8n receives it successfully, show the success screen
+        setIsSuccess(true);
+        setFormData({
+          name: '', email: '', phone: '', projectType: '', budget: '', location: '', timeline: '', description: ''
+        });
+      } else {
+        // If n8n throws an error
+        console.error('n8n rejected the request. Status:', response.status);
+        alert('There was a problem sending your inquiry. Please try again.');
+      }
+    } catch (error) {
+      // If the browser can't reach n8n at all (network error)
+      console.error('Network Error:', error);
+      alert('Could not connect. Please check your internet connection and try again.');
+    } finally {
+      // Always stop the loading spinner, pass or fail
+      setIsSubmitting(false);
+    }
   };
+  // -------------------------------------
 
   return (
     <section id="inquiry" className="py-24 bg-flaux-dark text-white relative overflow-hidden scroll-mt-28">
