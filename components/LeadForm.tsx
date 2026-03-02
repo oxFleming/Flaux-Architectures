@@ -22,12 +22,11 @@ const LeadForm: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // --- THIS IS THE NEW REAL API CALL ---
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // 🔥 PASTE YOUR N8N TEST URL HERE 🔥
+    // Your active ngrok URL
     const WEBHOOK_URL = 'https://fastuous-sophia-counterproductively.ngrok-free.dev/webhook-test/flaux-leads'; 
 
     try {
@@ -36,6 +35,7 @@ const LeadForm: React.FC = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true', // Bypasses the ngrok warning screen
         },
         body: JSON.stringify(formData),
       });
@@ -60,7 +60,6 @@ const LeadForm: React.FC = () => {
       setIsSubmitting(false);
     }
   };
-  // -------------------------------------
 
   return (
     <section id="inquiry" className="py-24 bg-flaux-dark text-white relative overflow-hidden scroll-mt-28">
